@@ -25,10 +25,21 @@ const Login = () => {
           </div>
 
           <button
-            className='bg-blue-600 text-white p-2 cursor-pointer rounded-lg'
+            className='bg-blue-600 text-white p-2 cursor-pointer rounded-lg mt-4'
           >
             Login
           </button>
+
+          {/* Redirect to Signup page */}
+          <div>
+            <span>Don't have an account? </span>
+            <a
+              className='cursor-pointer text-blue-600 font-bold'
+              href='/signup'
+            >
+              <u>Let's make one.</u>
+            </a>
+          </div>
         </div>
       </div>
     </div>
