@@ -7,6 +7,11 @@ const Login = () => {
       <div className='h-screen flex items-center'>
         {/* Form */}
         <div className='flex flex-col justify-between p-8 mx-auto max-w-xl border rounded-lg space-y-4'>
+          <div className='mb-8'>
+            <h1 className='text-center text-2xl'>Welcome back!</h1>
+            <p className='text-center'>Please fill the following fields.</p>
+          </div>
+
           {/* Fields */}
           <div className='flex items-center justify-between gap-4'>
             <label>Email</label>
