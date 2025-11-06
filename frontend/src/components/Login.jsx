@@ -1,0 +1,38 @@
+import React from 'react'
+
+const Login = () => {
+  return (
+    <div>
+      {/* Form container */}
+      <div className='h-screen flex items-center'>
+        {/* Form */}
+        <div className='flex flex-col justify-between p-8 mx-auto max-w-xl border rounded-lg space-y-4'>
+          {/* Fields */}
+          <div className='flex items-center justify-between gap-4'>
+            <label>Email</label>
+            <input 
+              type='email'
+              className='px-2 py-1 border border-gray-500 rounded-lg'
+            />
+          </div>
+
+          <div className='flex items-center justify-between gap-4'>
+            <label>Password</label>
+            <input 
+              type='password'
+              className='px-2 py-1 border border-gray-500 rounded-lg'
+            />
+          </div>
+
+          <button
+            className='bg-blue-600 text-white p-2 cursor-pointer rounded-lg'
+          >
+            Login
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Login
