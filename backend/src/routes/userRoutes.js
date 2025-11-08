@@ -33,4 +33,31 @@ router.post("/register", async (req, res) => {
     }
 });
 
+// Login
+router.post("/login", async (req, res) => {
+    // Extract email and password from request body
+    const { email, password } = req.body;
+    try {
+        // Find user
+        const user = await User.findOne({ email });
+        if (user && (await user.matchPassword(password))) {
+            // Generate token
+            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+                expiresIn: "1d",
+            });
+
+            // Send token
+            res.json({
+                _id: user._id,
+                email: user.email,
+                token,
+            });
+        } else {
+            res.status(401).json({ message: "Invalid email or password." }); // Unauthorized code
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 export default router;
