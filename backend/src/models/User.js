@@ -25,7 +25,7 @@ schema.pre("save", async function (next) {
     next();
 });
 
-// Compare entered password with hased password
+// Compare entered password with hashed password
 schema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
