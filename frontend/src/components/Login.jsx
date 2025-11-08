@@ -5,11 +5,21 @@ import axios from 'axios';
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   // Login method
   const handleLogin = async (e) => {
     e.preventDefault();
-    
+    if (!email) {
+      setError("Please enter your email");
+      return;
+    }
+
+    if (!password) {
+      setError("Please enter your password");
+      return;
+    }
+
     try {
       // Send form data in the request body
       const response = await axios.post("http://localhost:5000/api/users/login", 
@@ -24,8 +34,9 @@ const Login = () => {
       } else {
         console.log("Login unsuccessful!", response);
       }
-    } catch (error) {
-      console.log("Error submiting login form data:", error);
+    } catch (err) {
+      setError(err.response.data.message);
+      console.log("Error submiting login form data:", err);
     }
   }
 
@@ -64,9 +75,19 @@ const Login = () => {
             />
           </div>
 
+          {error && (
+            <div className='text-red-500'>
+              {error}
+            </div>
+          )}
+
           <button
             type='submit'
-            className='bg-blue-600 text-white p-2 cursor-pointer rounded-lg mt-4'
+            disabled={(!email || !password)}
+            className={`bg-blue-600 text-white p-2
+              ${
+                (!email || !password) ? 'bg-gray-400' : 'cursor-pointer'
+              } rounded-lg mt-4`}
           >
             Login
           </button>
