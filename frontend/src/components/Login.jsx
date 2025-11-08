@@ -1,12 +1,43 @@
 import React from 'react'
+import { useState } from 'react';
+import axios from 'axios';
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // Login method
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    
+    try {
+      // Send form data in the request body
+      const response = await axios.post("http://localhost:5000/api/users/login", 
+        {
+          email: email,
+          password: password,
+        }
+      );
+
+      if (response) {
+        console.log("Login successful!", response);
+      } else {
+        console.log("Login unsuccessful!", response);
+      }
+    } catch (error) {
+      console.log("Error submiting login form data:", error);
+    }
+  }
+
   return (
     <div>
       {/* Form container */}
       <div className='h-screen flex items-center'>
         {/* Form */}
-        <div className='flex flex-col justify-between p-8 mx-auto max-w-xl border rounded-lg space-y-4'>
+        <form 
+          onSubmit={handleLogin}
+          className='flex flex-col justify-between p-8 mx-auto max-w-xl border rounded-lg space-y-4'
+        >
           <div className='mb-8'>
             <h1 className='text-center text-2xl'>Welcome back!</h1>
             <p className='text-center'>Please fill the following fields.</p>
@@ -17,6 +48,8 @@ const Login = () => {
             <label>Email</label>
             <input 
               type='email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className='px-2 py-1 border border-gray-500 rounded-lg'
             />
           </div>
@@ -25,11 +58,14 @@ const Login = () => {
             <label>Password</label>
             <input 
               type='password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className='px-2 py-1 border border-gray-500 rounded-lg'
             />
           </div>
 
           <button
+            type='submit'
             className='bg-blue-600 text-white p-2 cursor-pointer rounded-lg mt-4'
           >
             Login
@@ -45,7 +81,7 @@ const Login = () => {
               <u>Let's make one.</u>
             </a>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   )
