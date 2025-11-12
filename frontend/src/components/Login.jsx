@@ -1,12 +1,15 @@
 import React from 'react'
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const navigate = useNavigate();
 
   // Login method
   const handleLogin = async (e) => {
@@ -33,8 +36,9 @@ const Login = () => {
         }
       );
 
-      if (response) {
+      if (response.status === 200) {
         console.log("Login successful!", response);
+        navigate('/templates');
       } else {
         console.log("Login unsuccessful!", response);
       }
