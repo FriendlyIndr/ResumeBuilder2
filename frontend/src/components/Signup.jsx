@@ -1,10 +1,13 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,8 +19,9 @@ const Signup = () => {
         confirmPassword: confirmPassword,
       })
 
-      if (response) {
+      if (response.status === 201) {
         console.log("Response:", response);
+        navigate('/templates');
       }
     } catch (err) {
       console.log("Error signing in:", err);
