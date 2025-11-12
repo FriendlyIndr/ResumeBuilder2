@@ -6,10 +6,14 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Login method
   const handleLogin = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setError("");
+    
     if (!email) {
       setError("Please enter your email");
       return;
@@ -37,8 +41,22 @@ const Login = () => {
     } catch (err) {
       setError(err.response.data.message);
       console.log("Error submiting login form data:", err);
+    } finally {
+      setIsSubmitting(false);
     }
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setError("");
   }
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setError("");
+  }
+
+  const isDisabled = !email || !password || (error && !isSubmitting);
 
   return (
     <div>
@@ -60,7 +78,7 @@ const Login = () => {
             <input 
               type='email'
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailChange}
               className='px-2 py-1 w-2xs border border-gray-500 rounded-lg'
             />
           </div>
@@ -70,7 +88,7 @@ const Login = () => {
             <input 
               type='password'
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
               className='px-2 py-1 w-2xs border border-gray-500 rounded-lg'
             />
           </div>
@@ -86,7 +104,7 @@ const Login = () => {
             disabled={(!email || !password)}
             className={`bg-blue-600 text-white p-2
               ${
-                (!email || !password) ? 'bg-gray-400' : 'cursor-pointer'
+                isDisabled ? 'bg-gray-400' : 'cursor-pointer'
               } rounded-lg mt-4`}
           >
             Login
