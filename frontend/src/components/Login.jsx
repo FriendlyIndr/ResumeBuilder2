@@ -61,7 +61,7 @@ const Login = () => {
               type='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className='px-2 py-1 border border-gray-500 rounded-lg'
+              className='px-2 py-1 w-2xs border border-gray-500 rounded-lg'
             />
           </div>
 
@@ -71,7 +71,7 @@ const Login = () => {
               type='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className='px-2 py-1 border border-gray-500 rounded-lg'
+              className='px-2 py-1 w-2xs border border-gray-500 rounded-lg'
             />
           </div>
 
@@ -93,7 +93,7 @@ const Login = () => {
           </button>
 
           {/* Redirect to Signup page */}
-          <div>
+          <div className='text-center'>
             <span>Don't have an account? </span>
             <a
               className='cursor-pointer text-blue-600 font-bold'
